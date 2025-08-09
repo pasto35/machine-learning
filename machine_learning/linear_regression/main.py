@@ -19,8 +19,8 @@ if __name__ == '__main__':
     # # dark - positive correlation. If item 'a' is growing and item 'b' is growing to
     # #        R&D - Profit = 0.9
     # #        Administration - Profit = 0.4
-    # sns.heatmap(companies.corr(numeric_only=True), cmap="Greys")
-    # plt.show()
+    sns.heatmap(companies.corr(numeric_only=True), cmap="Greys")
+    plt.show()
 
     # transformation of State column (categorical values) to numbers
     column_transformer = ColumnTransformer(
