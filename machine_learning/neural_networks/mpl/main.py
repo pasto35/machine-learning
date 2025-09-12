@@ -60,3 +60,34 @@ if __name__ == '__main__':
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
+
+    # plt.plot(range(epochs), losses)
+    # plt.ylabel("loss/error")
+    # plt.xlabel("Epochs")
+    # plt.show()
+
+    # Evaluation
+    with torch.no_grad(): # Turn off backpropagation
+        y_eval = model.forward(X_test) # X_test are our features from our test set (20% of dataset)
+        loss = criterion(y_eval, y_test)
+
+    print(loss)
+
+    correct = []
+    with torch.no_grad():
+        for i, data in enumerate(X_test):
+            y_val = model.forward(data)
+
+            print(f'{i+1}.) {str(y_val)} {y_test[i]} {y_val.argmax().item()}')
+            if y_val.argmax().item() == y_test[i]:
+               correct.append(1)
+
+        print(len(correct))
+
+    # store and load model
+    torch.save(model.state_dict(), "./../../models/ris_model_1.pt")
+    loaded_model = Model()
+    loaded_model.load_state_dict(torch.load("./../../models/ris_model_1.pt"))
+
+    # Make sure if model has been loaded
+    print(loaded_model.eval())
